@@ -28,7 +28,7 @@ RUN git clone --recursive https://github.com/tdlib/telegram-bot-api.git && \
     ls -la /usr/local/bin/
 
 # Install Flask for health check endpoint
-RUN pip3 install flask gunicorn requests
+RUN pip3 install flask gunicorn requests gevent
 
 # Copy startup script
 COPY start.sh /app/start.sh

@@ -14,4 +14,10 @@ sleep 10
 
 # Start health check server on port 10000 (Render's default)
 echo "Starting health check server..."
-exec gunicorn -b 0.0.0.0:10000 health_server:app
+exec gunicorn -b 0.0.0.0:10000 \
+    --timeout 1200 \
+    --graceful-timeout 30 \
+    --keep-alive 5 \
+    --worker-class gevent \
+    --workers 2 \
+    health_server:app
