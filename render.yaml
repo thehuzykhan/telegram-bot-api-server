@@ -5,14 +5,14 @@ services:
     plan: free
     healthCheckPath: /health
     autoDeploy: true
-    # Lenient health check to prevent restarts during large uploads
+    # Lenient health check to prevent restarts during large uploads (up to 2GB)
     healthCheck:
       path: /health
-      initialDelaySeconds: 30
-      periodSeconds: 60
-      timeoutSeconds: 10
+      initialDelaySeconds: 60
+      periodSeconds: 300        # Check every 5 minutes
+      timeoutSeconds: 30
       successThreshold: 1
-      failureThreshold: 5
+      failureThreshold: 2       # 2 failures × 5 min = 10 min grace period
     envVars:
       - key: TELEGRAM_API_ID
         sync: false
