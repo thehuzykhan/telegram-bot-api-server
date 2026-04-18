@@ -4,6 +4,15 @@ services:
     env: docker
     plan: free
     healthCheckPath: /health
+    autoDeploy: true
+    # Lenient health check to prevent restarts during large uploads
+    healthCheck:
+      path: /health
+      initialDelaySeconds: 30
+      periodSeconds: 60
+      timeoutSeconds: 10
+      successThreshold: 1
+      failureThreshold: 5
     envVars:
       - key: TELEGRAM_API_ID
         sync: false
